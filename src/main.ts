@@ -12,7 +12,10 @@ import { LoggerService } from './providers/logger/logger.service';
 import validationOptions from './utils/validation-options';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { cors: true, bufferLogs: true, });
+  const app = await NestFactory.create(AppModule, {
+    cors: true,
+    bufferLogs: true,
+  });
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
   const configService = app.get(ConfigService);
 
@@ -38,7 +41,5 @@ async function bootstrap() {
   SwaggerModule.setup('docs', app, document);
 
   await app.listen(configService.get('app.port'));
-  
-  
 }
 void bootstrap();

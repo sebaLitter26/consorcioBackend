@@ -3,8 +3,8 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Allow } from 'class-validator';
 import { EntityHelper } from 'src/utils/entity-helper';
 
-@Entity()
-export class Role extends EntityHelper {
+@Entity({ name: 'role' })
+export class RoleEntity extends EntityHelper {
   @ApiProperty({ example: 1 })
   @PrimaryColumn()
   id: number;

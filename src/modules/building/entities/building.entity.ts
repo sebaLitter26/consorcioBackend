@@ -12,8 +12,8 @@ import {
   BeforeUpdate,
   OneToMany,
 } from 'typeorm';
-import { Role } from '../../../roles/entities/role.entity';
-import { Status } from '../../../statuses/entities/status.entity';
+import { RoleEntity } from '../../../roles/entities/role.entity';
+import { StatusEntity } from '../../../statuses/entities/status.entity';
 import { FileEntity } from '../../../files/entities/file.entity';
 import * as bcrypt from 'bcryptjs';
 import { EntityHelper } from 'src/utils/entity-helper';
@@ -30,18 +30,18 @@ export class Building extends EntityHelper {
   @Column({ nullable: true })
   address?: string | null;
 
-  @OneToMany(() => Appartment, (appartmens: Appartment) => appartmens.building)   //  @JoinTable()    appartmens: Promise<Appartmen[]>  lazyLoad
-  appartments: Appartment[]
+  @OneToMany(() => Appartment, (appartmens: Appartment) => appartmens.building) //  @JoinTable()    appartmens: Promise<Appartmen[]>  lazyLoad
+  appartments: Appartment[];
 
   @ManyToOne(() => FileEntity, {
     eager: true,
   })
   photo?: FileEntity | null;
 
-  @ManyToOne(() => Status, {
+  @ManyToOne(() => StatusEntity, {
     eager: true,
   })
-  status?: Status;
+  status?: StatusEntity;
 
   @CreateDateColumn()
   createdAt: Date;

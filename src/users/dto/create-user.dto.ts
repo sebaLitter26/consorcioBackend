@@ -1,6 +1,6 @@
 import { Transform } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
-import { Role } from '../../roles/entities/role.entity';
+import { RoleEntity } from '../../roles/entities/role.entity';
 import {
   IsEmail,
   IsNotEmpty,
@@ -8,7 +8,7 @@ import {
   MinLength,
   Validate,
 } from 'class-validator';
-import { Status } from '../../statuses/entities/status.entity';
+import { StatusEntity } from '../../statuses/entities/status.entity';
 import { IsNotExist } from '../../utils/validators/is-not-exists.validator';
 import { FileEntity } from '../../files/entities/file.entity';
 import { IsExist } from '../../utils/validators/is-exists.validator';
@@ -46,17 +46,17 @@ export class CreateUserDto {
   })
   photo?: FileEntity | null;
 
-  @ApiProperty({ type: Role })
+  @ApiProperty({ type: RoleEntity })
   @Validate(IsExist, ['Role', 'id'], {
     message: 'roleNotExists',
   })
-  role?: Role | null;
+  role?: RoleEntity | null;
 
-  @ApiProperty({ type: Status })
+  @ApiProperty({ type: StatusEntity })
   @Validate(IsExist, ['Status', 'id'], {
     message: 'statusNotExists',
   })
-  status?: Status;
+  status?: StatusEntity;
 
   hash?: string | null;
 }

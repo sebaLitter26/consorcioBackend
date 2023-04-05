@@ -8,7 +8,7 @@ import {
   MinLength,
   Validate,
 } from 'class-validator';
-import { Status } from '../../../statuses/entities/status.entity';
+import { StatusEntity } from '../../../statuses/entities/status.entity';
 import { IsNotExist } from '../../../utils/validators/is-not-exists.validator';
 import { FileEntity } from '../../../files/entities/file.entity';
 import { IsExist } from '../../../utils/validators/is-exists.validator';
@@ -16,18 +16,18 @@ import { Appartment } from '../../appartment/entities/appartment.entity';
 import { User } from '../../../users/entities/user.entity';
 
 export class CreateTenantDto {
-  @ApiProperty({ example: 'Sebastian', type: [Appartment]  })
+  @ApiProperty({ example: 'Sebastian', type: [Appartment] })
   @Transform(({ value }) => value?.toLowerCase().trim())
   @IsNotEmpty()
   @IsArray()
-  @Validate(IsExist, ['Appartment','id'], {
+  @Validate(IsExist, ['Appartment', 'id'], {
     message: 'AppartmentNotExists',
   })
   appartments?: Appartment[] | null;
 
-  @ApiProperty({ example: 'Sebastian', type: [User]  })
+  @ApiProperty({ example: 'Sebastian', type: [User] })
   @IsNotEmpty()
-  @Validate(IsExist, ['User','id'], {
+  @Validate(IsExist, ['User', 'id'], {
     message: 'UserNotExists',
   })
   user: User;
@@ -39,15 +39,12 @@ export class CreateTenantDto {
   })
   photo?: FileEntity | null;
 
-
-  @ApiProperty({ type: Status })
+  @ApiProperty({ type: StatusEntity })
   @Validate(IsExist, ['Status', 'id'], {
     message: 'statusNotExists',
   })
-  status?: Status;
-
+  status?: StatusEntity;
 }
-
 
 /* 
 

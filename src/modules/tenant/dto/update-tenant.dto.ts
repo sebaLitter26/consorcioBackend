@@ -3,10 +3,14 @@ import { CreateTenantDto } from './create-tenant.dto';
 
 import { Transform } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
-import { Role } from '../../../roles/entities/role.entity';
-import { IsArray, IsEmail, IsNotEmpty, IsOptional, MinLength, Validate } from 'class-validator';
-import { Status } from '../../../statuses/entities/status.entity';
-import { IsNotExist } from '../../../utils/validators/is-not-exists.validator';
+import { RoleEntity } from '../../../roles/entities/role.entity';
+import {
+  IsArray,
+  IsNotEmpty,
+  IsOptional,
+  Validate,
+} from 'class-validator';
+import { StatusEntity } from '../../../statuses/entities/status.entity';
 import { FileEntity } from '../../../files/entities/file.entity';
 import { IsExist } from '../../../utils/validators/is-exists.validator';
 import { Appartment } from '../../appartment/entities/appartment.entity';
@@ -17,14 +21,14 @@ export class UpdateTenantDto extends PartialType(CreateTenantDto) {
   @Transform(({ value }) => value?.toLowerCase().trim())
   @IsOptional()
   @IsArray()
-  @Validate(IsExist, ['Appartment','id'], {
+  @Validate(IsExist, ['Appartment', 'id'], {
     message: 'AppartmentNotExists',
   })
   appartments?: Appartment[] | null;
 
-  @ApiProperty({ example: 'Sebastian', type: [User]  })
+  @ApiProperty({ example: 'Sebastian', type: [User] })
   @IsNotEmpty()
-  @Validate(IsExist, ['User','id'], {
+  @Validate(IsExist, ['User', 'id'], {
     message: 'UserNotExists',
   })
   user: User;
@@ -36,19 +40,19 @@ export class UpdateTenantDto extends PartialType(CreateTenantDto) {
   })
   photo?: FileEntity | null;
 
-  @ApiProperty({ type: Role })
+  @ApiProperty({ type: RoleEntity })
   @IsOptional()
   @Validate(IsExist, ['Role', 'id'], {
     message: 'roleNotExists',
   })
-  role?: Role | null;
+  role?: RoleEntity | null;
 
-  @ApiProperty({ type: Status })
+  @ApiProperty({ type: StatusEntity })
   @IsOptional()
   @Validate(IsExist, ['Status', 'id'], {
     message: 'statusNotExists',
   })
-  status?: Status;
+  status?: StatusEntity;
 
   hash?: string | null;
 }

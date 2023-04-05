@@ -5,6 +5,7 @@ import appConfig from 'src/config/app.config';
 import databaseConfig from 'src/config/database.config';
 import { DataSource } from 'typeorm';
 import { TypeOrmConfigService } from '../typeorm-config.service';
+import { BuildingSeedModule } from './building/building-seed.module';
 import { RoleSeedModule } from './role/role-seed.module';
 import { StatusSeedModule } from './status/status-seed.module';
 import { UserSeedModule } from './user/user-seed.module';
@@ -26,6 +27,7 @@ import { UserSeedModule } from './user/user-seed.module';
     RoleSeedModule,
     StatusSeedModule,
     UserSeedModule,
+    BuildingSeedModule,
   ],
 })
 export class SeedModule {}

@@ -80,7 +80,10 @@ export class AppartmentController {
   })
   @Patch(':id')
   @HttpCode(HttpStatus.OK)
-  update(@Param('id') id: number, @Body() updateProfileDto: UpdateAppartmentDto) {
+  update(
+    @Param('id') id: number,
+    @Body() updateProfileDto: UpdateAppartmentDto,
+  ) {
     return this.appartmentService.update(id, updateProfileDto);
   }
 

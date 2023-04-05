@@ -41,7 +41,6 @@ import { SmsModule } from './providers/twilio-sms/sms.module';
 
 //import { PubSubModule } from './providers/redis/redisPubSub.module';
 
-
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -63,6 +62,7 @@ import { SmsModule } from './providers/twilio-sms/sms.module';
     }),
     TypeOrmModule.forRootAsync({
       useClass: TypeOrmConfigService,
+
       dataSourceFactory: async (options) => {
         const dataSource = await new DataSource(options).initialize();
         return dataSource;
@@ -99,8 +99,8 @@ import { SmsModule } from './providers/twilio-sms/sms.module';
     MailModule,
     HomeModule,
     RedisCacheModule,
-		//PubSubModule,
-		LoggerModule,
+    //PubSubModule,
+    LoggerModule,
     SmsModule,
 
     TenantModule,

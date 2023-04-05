@@ -14,8 +14,8 @@ import {
   OneToOne,
   JoinColumn,
 } from 'typeorm';
-import { Role } from '../../../roles/entities/role.entity';
-import { Status } from '../../../statuses/entities/status.entity';
+import { RoleEntity } from '../../../roles/entities/role.entity';
+import { StatusEntity } from '../../../statuses/entities/status.entity';
 import { FileEntity } from '../../../files/entities/file.entity';
 import * as bcrypt from 'bcryptjs';
 import { EntityHelper } from 'src/utils/entity-helper';
@@ -29,25 +29,28 @@ export class Tenant extends EntityHelper {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToMany((type) => Appartment, (appartmens:Appartment) => appartmens.tenant)   //  @JoinTable()    appartmens: Promise<Appartmen[]>  lazyLoad
-  appartments: Appartment[]
+  @OneToMany(
+    (type) => Appartment,
+    (appartmens: Appartment) => appartmens.tenant,
+  ) //  @JoinTable()    appartmens: Promise<Appartmen[]>  lazyLoad
+  appartments: Appartment[];
 
   @OneToOne(() => User, {
     eager: true,
-    cascade: true
+    cascade: true,
   })
   @JoinColumn()
-  user: User
+  user: User;
 
   @ManyToOne(() => FileEntity, {
     eager: true,
   })
   photo?: FileEntity | null;
 
-  @ManyToOne(() => Status, {
+  @ManyToOne(() => StatusEntity, {
     eager: true,
   })
-  status?: Status;
+  status?: StatusEntity;
 
   @CreateDateColumn()
   createdAt: Date;

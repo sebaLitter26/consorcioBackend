@@ -11,8 +11,8 @@ import {
   BeforeInsert,
   BeforeUpdate,
 } from 'typeorm';
-import { Role } from '../../roles/entities/role.entity';
-import { Status } from '../../statuses/entities/status.entity';
+import { RoleEntity } from '../../roles/entities/role.entity';
+import { StatusEntity } from '../../statuses/entities/status.entity';
 import { FileEntity } from '../../files/entities/file.entity';
 import * as bcrypt from 'bcryptjs';
 import { EntityHelper } from 'src/utils/entity-helper';
@@ -71,15 +71,15 @@ export class User extends EntityHelper {
   })
   photo?: FileEntity | null;
 
-  @ManyToOne(() => Role, {
+  @ManyToOne(() => RoleEntity, {
     eager: true,
   })
-  role?: Role | null;
+  role?: RoleEntity | null;
 
-  @ManyToOne(() => Status, {
+  @ManyToOne(() => StatusEntity, {
     eager: true,
   })
-  status?: Status;
+  status?: StatusEntity;
 
   @Column({ nullable: true })
   @Index()

@@ -9,8 +9,8 @@ import { RoleEnum } from 'src/roles/roles.enum';
 import { StatusEnum } from 'src/statuses/statuses.enum';
 import * as crypto from 'crypto';
 import { plainToClass } from 'class-transformer';
-import { Status } from 'src/statuses/entities/status.entity';
-import { Role } from 'src/roles/entities/role.entity';
+import { StatusEntity } from 'src/statuses/entities/status.entity';
+import { RoleEntity } from 'src/roles/entities/role.entity';
 import { AuthProvidersEnum } from './auth-providers.enum';
 import { SocialInterface } from 'src/social/interfaces/social.interface';
 import { AuthRegisterLoginDto } from './dto/auth-register-login.dto';
@@ -75,7 +75,7 @@ export class AuthService {
     if (isValidPassword) {
       const token = await this.jwtService.sign({
         id: user.id,
-        role: user.role,
+        //role: user.role,
       });
 
       return { token, user: user };
@@ -116,10 +116,10 @@ export class AuthService {
     } else if (userByEmail) {
       user = userByEmail;
     } else {
-      const role = plainToClass(Role, {
+      const role = plainToClass(RoleEntity, {
         id: RoleEnum.user,
       });
-      const status = plainToClass(Status, {
+      const status = plainToClass(StatusEntity, {
         id: StatusEnum.active,
       });
 
@@ -160,10 +160,10 @@ export class AuthService {
       email: dto.email,
       role: {
         id: RoleEnum.user,
-      } as Role,
+      } as RoleEntity,
       status: {
         id: StatusEnum.inactive,
-      } as Status,
+      } as StatusEntity,
       hash,
     });
 
@@ -191,7 +191,7 @@ export class AuthService {
     }
 
     user.hash = null;
-    user.status = plainToClass(Status, {
+    user.status = plainToClass(StatusEntity, {
       id: StatusEnum.active,
     });
     await user.save();
@@ -260,38 +260,36 @@ export class AuthService {
     return this.usersService.findOne({
       id: user.id,
     });
-    
   }
 
-
   async authToken(user: User): Promise<{ token: string; user: User }> {
-      let userBase = await this.usersService.findOne({
-        id: user.id,
-      });
+    const userBase = await this.usersService.findOne({
+      id: user.id,
+    });
 
-      if (!userBase) {
-        throw new HttpException(
-          {
-            status: HttpStatus.NOT_FOUND,
-            error: `notFound`,
-          },
-          HttpStatus.NOT_FOUND,
-        );
-      }
-      /* this.logger.log(userBase.password, user.password);
+    if (!userBase) {
+      throw new HttpException(
+        {
+          status: HttpStatus.NOT_FOUND,
+          error: `notFound`,
+        },
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    /* this.logger.log(userBase.password, user.password);
       const isValidPassword = await bcrypt.compare(
         userBase.password,
         user.password,
       ); */
-  
-      //if (isValidPassword) {
-        const token = await this.jwtService.sign({
-          id: userBase.id,
-          role: userBase.role,
-        });
-  
-        return { token, user: userBase };
-     /*  } else {
+
+    //if (isValidPassword) {
+    const token = await this.jwtService.sign({
+      id: userBase.id,
+      role: userBase.role,
+    });
+
+    return { token, user: userBase };
+    /*  } else {
         throw new HttpException(
           {
             status: HttpStatus.UNPROCESSABLE_ENTITY,

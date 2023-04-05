@@ -14,7 +14,7 @@ import {
 } from '@nestjs/common';
 
 //import { PubSubModule } from 'src/providers/redis/redisPubSub.module';
-//import { PUB_SUB } from 'src/providers/redis/redisPubSub.module'; 
+//import { PUB_SUB } from 'src/providers/redis/redisPubSub.module';
 import { AuthService } from './auth.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthEmailLoginDto } from './dto/auth-email-login.dto';
@@ -33,10 +33,8 @@ import { LoggerService } from '../providers/logger/logger.service';
 })
 export class AuthController {
   constructor(
-    public service: AuthService, 
-    public logger: LoggerService,
-    //@InjectRedis() private redis: Redis,
-    //@Inject(PUB_SUB) private pubSub: PubSubModule
+    public service: AuthService,
+    public logger: LoggerService, //@InjectRedis() private redis: Redis, //@Inject(PUB_SUB) private pubSub: PubSubModule
   ) {}
 
   @SerializeOptions({
@@ -54,7 +52,7 @@ export class AuthController {
   @Post('admin/email/login')
   @HttpCode(HttpStatus.OK)
   public async adminLogin(@Body() loginDTO: AuthEmailLoginDto) {
-    return this.service.validateLogin(loginDTO, true); 
+    return this.service.validateLogin(loginDTO, true);
   }
 
   @Post('email/register')
@@ -68,11 +66,10 @@ export class AuthController {
   async confirmEmail(@Param('hash') hash) {
     //console.log(confirmEmailDto);
     //this.redis.publish('confirmEmailDto', JSON.stringify(confirmEmailDto));
-    //this.logger.log('confirmEmailDto ' ,hash); 
-    
+    //this.logger.log('confirmEmailDto ' ,hash);
+
     return this.service.confirmEmail(hash);
   }
-  
 
   @Post('forgot/password')
   @HttpCode(HttpStatus.OK)
@@ -130,12 +127,9 @@ export class AuthController {
     return this.service.softDelete(request.user);
   }
 
-
-
-/* 
+  /* 
   @Subscription(() => AuthConfirmEmailDto)
 	confirmEmail() {
 		return this.redis.asyncIterator('confirmEmailDto');
 	} */
-
 }

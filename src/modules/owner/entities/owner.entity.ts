@@ -14,8 +14,8 @@ import {
   OneToOne,
   JoinColumn,
 } from 'typeorm';
-import { Role } from '../../../roles/entities/role.entity';
-import { Status } from '../../../statuses/entities/status.entity';
+import { RoleEntity } from '../../../roles/entities/role.entity';
+import { StatusEntity } from '../../../statuses/entities/status.entity';
 import { FileEntity } from '../../../files/entities/file.entity';
 import * as bcrypt from 'bcryptjs';
 import { EntityHelper } from 'src/utils/entity-helper';
@@ -31,14 +31,14 @@ export class Owner extends EntityHelper {
 
   @OneToOne(() => Appartment, {
     eager: true,
-    cascade: true
+    cascade: true,
   })
   @JoinColumn()
   appartment: Appartment;
 
   @OneToOne(() => User, {
     eager: true,
-    cascade: true
+    cascade: true,
   })
   @JoinColumn()
   user: User;
@@ -48,10 +48,10 @@ export class Owner extends EntityHelper {
   })
   photo?: FileEntity | null;
 
-  @ManyToOne(() => Status, {
+  @ManyToOne(() => StatusEntity, {
     eager: true,
   })
-  status?: Status;
+  status?: StatusEntity;
 
   @CreateDateColumn()
   createdAt: Date;

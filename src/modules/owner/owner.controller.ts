@@ -18,10 +18,6 @@ import { OwnerService } from './owner.service';
 import { CreateOwnerDto } from './dto/create-Owner.dto';
 import { UpdateOwnerDto } from './dto/update-Owner.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { Roles } from 'src/roles/roles.decorator';
-import { RoleEnum } from 'src/roles/roles.enum';
-import { AuthGuard } from '@nestjs/passport';
-import { RolesGuard } from 'src/roles/roles.guard';
 import { infinityPagination } from 'src/utils/infinity-pagination';
 
 /* @ApiBearerAuth()

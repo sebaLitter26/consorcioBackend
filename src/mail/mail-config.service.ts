@@ -8,7 +8,6 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
 export class MailConfigService implements MailerOptionsFactory {
   constructor(private configService: ConfigService) {}
 
-
   createMailerOptions(): MailerOptions {
     return {
       transport: {

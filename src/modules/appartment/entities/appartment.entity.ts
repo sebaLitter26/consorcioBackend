@@ -13,8 +13,7 @@ import {
   OneToOne,
   JoinColumn,
 } from 'typeorm';
-import { Role } from '../../../roles/entities/role.entity';
-import { Status } from '../../../statuses/entities/status.entity';
+import { StatusEntity } from '../../../statuses/entities/status.entity';
 import { FileEntity } from '../../../files/entities/file.entity';
 import * as bcrypt from 'bcryptjs';
 import { EntityHelper } from 'src/utils/entity-helper';
@@ -28,15 +27,15 @@ export class Appartment extends EntityHelper {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(type => Building, (buiding:Building) => buiding.appartments, {
+  @ManyToOne((type) => Building, (buiding: Building) => buiding.appartments, {
     eager: true,
-    cascade: true
+    cascade: true,
   })
   building?: Building | null;
 
-  @ManyToOne(type => Tenant, (tenant:Tenant) => tenant.appartments, {
+  @ManyToOne((type) => Tenant, (tenant: Tenant) => tenant.appartments, {
     eager: true,
-    cascade: true
+    cascade: true,
   })
   tenant?: Tenant | null;
 
@@ -45,10 +44,10 @@ export class Appartment extends EntityHelper {
   })
   photo?: FileEntity | null;
 
-  @ManyToOne(() => Status, {
+  @ManyToOne(() => StatusEntity, {
     eager: true,
   })
-  status?: Status;
+  status?: StatusEntity;
 
   @CreateDateColumn()
   createdAt: Date;

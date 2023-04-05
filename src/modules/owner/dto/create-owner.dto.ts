@@ -1,8 +1,8 @@
-//3.15  5.08   9-19    
+//3.15  5.08   9-19
 
 import { Transform } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
-import { Role } from '../../../roles/entities/role.entity';
+import { RoleEntity } from '../../../roles/entities/role.entity';
 import {
   IsEmail,
   IsNotEmpty,
@@ -10,7 +10,7 @@ import {
   MinLength,
   Validate,
 } from 'class-validator';
-import { Status } from '../../../statuses/entities/status.entity';
+import { StatusEntity } from '../../../statuses/entities/status.entity';
 import { IsNotExist } from '../../../utils/validators/is-not-exists.validator';
 import { FileEntity } from '../../../files/entities/file.entity';
 import { IsExist } from '../../../utils/validators/is-exists.validator';
@@ -21,14 +21,14 @@ export class CreateOwnerDto {
   @ApiProperty({ example: 'Sebastian', type: [Appartment] })
   @Transform(({ value }) => value?.toLowerCase().trim())
   @IsNotEmpty()
-  @Validate(IsExist, ['Appartment','id'], {
+  @Validate(IsExist, ['Appartment', 'id'], {
     message: 'AppartmentNotExists',
   })
   appartment: Appartment;
 
   @ApiProperty({ example: 'Sebastian', type: [User] })
   @IsNotEmpty()
-  @Validate(IsExist, ['User','id'], {
+  @Validate(IsExist, ['User', 'id'], {
     message: 'UserNotExists',
   })
   user: User;
@@ -40,15 +40,12 @@ export class CreateOwnerDto {
   })
   photo?: FileEntity | null;
 
-
-  @ApiProperty({ type: Status })
+  @ApiProperty({ type: StatusEntity })
   @Validate(IsExist, ['Status', 'id'], {
     message: 'statusNotExists',
   })
-  status?: Status;
-
+  status?: StatusEntity;
 }
-
 
 /* 
 

@@ -1,4 +1,12 @@
 import 'reflect-metadata';
+import { FileEntity } from 'src/files/entities/file.entity';
+import { Appartment } from 'src/modules/appartment/entities/appartment.entity';
+import { Building } from 'src/modules/building/entities/building.entity';
+import { Owner } from 'src/modules/owner/entities/Owner.entity';
+import { Tenant } from 'src/modules/tenant/entities/tenant.entity';
+import { RoleEntity } from 'src/roles/entities/role.entity';
+import { StatusEntity } from 'src/statuses/entities/status.entity';
+import { User } from 'src/users/entities/user.entity';
 import { DataSource, DataSourceOptions } from 'typeorm';
 
 export const AppDataSource = new DataSource({
@@ -13,7 +21,18 @@ export const AppDataSource = new DataSource({
   dropSchema: false,
   keepConnectionAlive: true,
   logging: process.env.NODE_ENV !== 'production',
-  entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+  entities: [
+    RoleEntity,
+    User,
+    StatusEntity,
+    FileEntity,
+    Appartment,
+    Building,
+    Owner,
+    Tenant,
+  ],
+  //entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+  //entities: [__dirname + '/../**/**/*.entity{.ts,.js}',__dirname + '/../**/**/**/*.entity{.ts,.js}'],
   migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
   cli: {
     entitiesDir: 'src',
@@ -23,7 +42,7 @@ export const AppDataSource = new DataSource({
   extra: {
     // based on https://node-postgres.com/api/pool
     // max connection pool size
-    max: parseInt(process.env.DATABASE_MAX_CONNECTIONS, 10) || 100,
+    //max: parseInt(process.env.DATABASE_MAX_CONNECTIONS, 10) || 100,
     ssl:
       process.env.DATABASE_SSL_ENABLED === 'true'
         ? {

@@ -16,17 +16,21 @@ export class MailService {
   ) {}
 
   async userSignUp(mailData: MailData<{ hash: string }>) {
-    //this.logger.log('confirmEmailDto ' ,mailData); 
+    //this.logger.log('confirmEmailDto ' ,mailData);
     await this.mailerService.sendMail({
       to: mailData.to,
       subject: await this.i18n.t('common.confirmEmail'),
-      text: `${this.configService.get('app.frontendDomain')}/${this.configService.get('app.apiPrefix')}/v1/auth/email/confirm/${
+      text: `${this.configService.get(
+        'app.frontendDomain',
+      )}/${this.configService.get('app.apiPrefix')}/v1/auth/email/confirm/${
         mailData.data.hash
       } ${await this.i18n.t('common.confirmEmail')}`,
       template: 'activation',
       context: {
         title: await this.i18n.t('common.confirmEmail'),
-        url: `${this.configService.get('app.frontendDomain')}/${this.configService.get('app.apiPrefix')}/v1/auth/email/confirm/${
+        url: `${this.configService.get(
+          'app.frontendDomain',
+        )}/${this.configService.get('app.apiPrefix')}/v1/auth/email/confirm/${
           mailData.data.hash
         }`,
         actionTitle: await this.i18n.t('common.confirmEmail'),
@@ -61,7 +65,7 @@ export class MailService {
     });
   }
 
-  async sendMail(mailData: MailData<{ subject: string; text: string; }>) {
+  async sendMail(mailData: MailData<{ subject: string; text: string }>) {
     await this.mailerService.sendMail({
       to: mailData.to,
       subject: `${mailData.data.subject}`,

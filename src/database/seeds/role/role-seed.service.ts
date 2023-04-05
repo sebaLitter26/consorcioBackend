@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Role } from 'src/roles/entities/role.entity';
+import { RoleEntity } from 'src/roles/entities/role.entity';
 import { RoleEnum } from 'src/roles/roles.enum';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class RoleSeedService {
   constructor(
-    @InjectRepository(Role)
-    private repository: Repository<Role>,
+    @InjectRepository(RoleEntity)
+    private repository: Repository<RoleEntity>,
   ) {}
 
   async run() {
