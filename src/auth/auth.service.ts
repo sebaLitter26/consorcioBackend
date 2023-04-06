@@ -257,7 +257,7 @@ export class AuthService {
   }
 
   async me(user: User): Promise<User> {
-    return this.usersService.findOne({
+    return await this.usersService.findOne({
       id: user.id,
     });
   }

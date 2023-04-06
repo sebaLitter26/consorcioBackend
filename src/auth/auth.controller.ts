@@ -43,7 +43,7 @@ export class AuthController {
   @Post('email/login')
   @HttpCode(HttpStatus.OK)
   public async login(@Body() loginDto: AuthEmailLoginDto) {
-    return this.service.validateLogin(loginDto, false);
+    return await this.service.validateLogin(loginDto, false);
   }
 
   @SerializeOptions({
@@ -52,13 +52,13 @@ export class AuthController {
   @Post('admin/email/login')
   @HttpCode(HttpStatus.OK)
   public async adminLogin(@Body() loginDTO: AuthEmailLoginDto) {
-    return this.service.validateLogin(loginDTO, true);
+    return await this.service.validateLogin(loginDTO, true);
   }
 
   @Post('email/register')
   @HttpCode(HttpStatus.CREATED)
   async register(@Body() createUserDto: AuthRegisterLoginDto) {
-    return this.service.register(createUserDto);
+    return await this.service.register(createUserDto);
   }
 
   @Get('email/confirm/:hash')
@@ -68,19 +68,19 @@ export class AuthController {
     //this.redis.publish('confirmEmailDto', JSON.stringify(confirmEmailDto));
     //this.logger.log('confirmEmailDto ' ,hash);
 
-    return this.service.confirmEmail(hash);
+    return await this.service.confirmEmail(hash);
   }
 
   @Post('forgot/password')
   @HttpCode(HttpStatus.OK)
   async forgotPassword(@Body() forgotPasswordDto: AuthForgotPasswordDto) {
-    return this.service.forgotPassword(forgotPasswordDto.email);
+    return await this.service.forgotPassword(forgotPasswordDto.email);
   }
 
   @Post('reset/password')
   @HttpCode(HttpStatus.OK)
   async resetPassword(@Body() resetPasswordDto: AuthResetPasswordDto) {
-    return this.service.resetPassword(
+    return await this.service.resetPassword(
       resetPasswordDto.hash,
       resetPasswordDto.password,
     );
@@ -94,7 +94,7 @@ export class AuthController {
   @UseGuards(AuthGuard('jwt'))
   @HttpCode(HttpStatus.OK)
   public async me(@Request() request) {
-    return this.service.me(request.user);
+    return await this.service.me(request.user);
   }
 
   @ApiBearerAuth()
@@ -105,7 +105,7 @@ export class AuthController {
   @UseGuards(AuthGuard('jwt'))
   @HttpCode(HttpStatus.OK)
   public async authToken(@Request() request) {
-    return this.service.authToken(request.user);
+    return await this.service.authToken(request.user);
   }
 
   @ApiBearerAuth()
@@ -116,7 +116,7 @@ export class AuthController {
   @UseGuards(AuthGuard('jwt'))
   @HttpCode(HttpStatus.OK)
   public async update(@Request() request, @Body() userDto: AuthUpdateDto) {
-    return this.service.update(request.user, userDto);
+    return await this.service.update(request.user, userDto);
   }
 
   @ApiBearerAuth()
@@ -124,7 +124,7 @@ export class AuthController {
   @UseGuards(AuthGuard('jwt'))
   @HttpCode(HttpStatus.OK)
   public async delete(@Request() request) {
-    return this.service.softDelete(request.user);
+    return await this.service.softDelete(request.user);
   }
 
   /* 

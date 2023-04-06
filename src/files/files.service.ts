@@ -30,7 +30,7 @@ export class FilesService {
       s3: file.location,
     };
 
-    return this.fileRepository.save(
+    return await this.fileRepository.save(
       this.fileRepository.create({
         path: path[this.configService.get('file.driver')],
       }),

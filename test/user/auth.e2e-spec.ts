@@ -59,7 +59,7 @@ describe('Auth user (e2e)', () => {
   });
 
   it('Register new user: /api/v1/auth/email/register (POST)', async () => {
-    return request(app)
+    return await request(app)
       .post('/api/v1/auth/email/register')
       .send({
         email: newUserEmail,
@@ -94,7 +94,7 @@ describe('Auth user (e2e)', () => {
           ?.text.replace(/.*confirm\-email\/(\w+).*/g, '$1'),
       );
 
-    return request(app)
+    return await request(app)
       .post('/api/v1/auth/email/confirm')
       .send({
         hash,
@@ -192,7 +192,7 @@ describe('Auth user (e2e)', () => {
       type: 'bearer',
     });
 
-    return request(app)
+    return await request(app)
       .post('/api/v1/auth/email/login')
       .send({ email: newUserEmail, password: newUserPassword })
       .expect(422);

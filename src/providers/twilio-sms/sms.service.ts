@@ -6,7 +6,7 @@ export class SmsService {
   public constructor(private readonly twilioService: TwilioService) {}
 
   async sendSMS(from: string, to: string, body: string) {
-    return this.twilioService.client.messages.create(
+    return await this.twilioService.client.messages.create(
       {
         body,
         from,

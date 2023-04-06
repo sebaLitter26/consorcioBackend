@@ -4,12 +4,7 @@ import { CreateTenantDto } from './create-tenant.dto';
 import { Transform } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { RoleEntity } from '../../../roles/entities/role.entity';
-import {
-  IsArray,
-  IsNotEmpty,
-  IsOptional,
-  Validate,
-} from 'class-validator';
+import { IsArray, IsNotEmpty, IsOptional, Validate } from 'class-validator';
 import { StatusEntity } from '../../../statuses/entities/status.entity';
 import { FileEntity } from '../../../files/entities/file.entity';
 import { IsExist } from '../../../utils/validators/is-exists.validator';

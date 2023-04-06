@@ -13,19 +13,19 @@ export class ForgotService {
   ) {}
 
   async findOne(options: FindOptions<Forgot>) {
-    return this.forgotRepository.findOne({
+    return await this.forgotRepository.findOne({
       where: options.where,
     });
   }
 
   async findMany(options: FindOptions<Forgot>) {
-    return this.forgotRepository.find({
+    return await this.forgotRepository.find({
       where: options.where,
     });
   }
 
   async create(data: DeepPartial<Forgot>) {
-    return this.forgotRepository.save(this.forgotRepository.create(data));
+    return await this.forgotRepository.save(this.forgotRepository.create(data));
   }
 
   async softDelete(id: number): Promise<void> {

@@ -40,7 +40,7 @@ export class RedisCacheModule {
           isGlobal: true,
           imports: [ConfigModule],
           useFactory: async (configService: ConfigService) =>
-            RedisCacheModule.geRedisConnectionOptions(configService),
+            await RedisCacheModule.geRedisConnectionOptions(configService),
           inject: [ConfigService],
         }),
       ],

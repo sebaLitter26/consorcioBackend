@@ -38,7 +38,7 @@ export class FilesController {
   })
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(@UploadedFile() file) {
-    return this.filesService.uploadFile(file);
+    return await this.filesService.uploadFile(file);
   }
 
   @Get(':path')
