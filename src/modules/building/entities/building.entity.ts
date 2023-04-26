@@ -35,11 +35,13 @@ export class Building extends EntityHelper {
 
   @ManyToOne(() => FileEntity, {
     eager: true,
+    createForeignKeyConstraints: false
   })
   photo?: FileEntity | null;
 
   @ManyToOne(() => StatusEntity, {
     eager: true,
+    createForeignKeyConstraints: false
   })
   status?: StatusEntity;
 

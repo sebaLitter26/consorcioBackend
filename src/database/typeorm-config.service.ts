@@ -1,14 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
-import { FileEntity } from 'src/files/entities/file.entity';
-import { Appartment } from 'src/modules/appartment/entities/appartment.entity';
-import { Building } from 'src/modules/building/entities/building.entity';
-import { Owner } from 'src/modules/owner/entities/Owner.entity';
-import { Tenant } from 'src/modules/tenant/entities/tenant.entity';
-import { RoleEntity } from 'src/roles/entities/role.entity';
-import { StatusEntity } from 'src/statuses/entities/status.entity';
-import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class TypeOrmConfigService implements TypeOrmOptionsFactory {
@@ -23,27 +15,20 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       username: this.configService.get('database.username'),
       password: this.configService.get('database.password'),
       database: this.configService.get('database.name'),
-      synchronize: this.configService.get('database.synchronize'),
+      synchronize: this.configService.get('database.synchronize'),   // cuando tenes una nueva columna en la entidad , la crea en la base. 
       autoLoadEntities: true, //  sacar luego
-      dropSchema: false,
+      dropSchema: true,
+      migrationsRun: true,
       keepConnectionAlive: true,
       logging: this.configService.get('app.nodeEnv') !== 'production',
-      //entities: [__dirname + '/../**/**/*.entity{.ts,.js}',__dirname + '/../**/**/**/*.entity{.ts,.js}'],
-      entities: [
-        RoleEntity,
-        User,
-        StatusEntity,
-        FileEntity,
-        Appartment,
-        Building,
-        Owner,
-        Tenant,
-      ],
-      //C:\Users\172303\Documents\consorcio\back-consorcio\dist\database
+      //entities: ['dist/**/entities/*.entity.js','dist/modules/**/entities/*.entity.js'],
+      //migrations: ['src/database/migrations/*{.ts,.js}'],
+      entities: [__dirname + '/../**/*.entity{.ts,.js}'],
       migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
+      //migrations: ['dist/database/migrations/**/*{.ts,.js}'],
       cli: {
         entitiesDir: 'src',
-        migrationsDir: 'src/database/migrations',
+        migrationsDir: __dirname + '/migrations',
         subscribersDir: 'subscriber',
       },
       extra: {

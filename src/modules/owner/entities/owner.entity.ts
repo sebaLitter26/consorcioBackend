@@ -32,6 +32,7 @@ export class Owner extends EntityHelper {
   @OneToOne(() => Appartment, {
     eager: true,
     cascade: true,
+    createForeignKeyConstraints: false
   })
   @JoinColumn()
   appartment: Appartment;
@@ -39,17 +40,20 @@ export class Owner extends EntityHelper {
   @OneToOne(() => User, {
     eager: true,
     cascade: true,
+    createForeignKeyConstraints: false
   })
   @JoinColumn()
   user: User;
 
-  @ManyToOne(() => FileEntity, {
-    eager: true,
+  @ManyToOne(() => FileEntity,
+  {
+    createForeignKeyConstraints: false
   })
   photo?: FileEntity | null;
 
   @ManyToOne(() => StatusEntity, {
     eager: true,
+    createForeignKeyConstraints: false
   })
   status?: StatusEntity;
 

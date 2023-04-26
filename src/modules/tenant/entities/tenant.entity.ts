@@ -38,17 +38,20 @@ export class Tenant extends EntityHelper {
   @OneToOne(() => User, {
     eager: true,
     cascade: true,
+    createForeignKeyConstraints: false
   })
   @JoinColumn()
   user: User;
 
   @ManyToOne(() => FileEntity, {
     eager: true,
+    createForeignKeyConstraints: false
   })
   photo?: FileEntity | null;
 
   @ManyToOne(() => StatusEntity, {
     eager: true,
+    createForeignKeyConstraints: false
   })
   status?: StatusEntity;
 

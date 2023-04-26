@@ -74,7 +74,7 @@ import { SmsModule } from './providers/twilio-sms/sms.module';
     I18nModule.forRootAsync({
       useFactory: (configService: ConfigService) => ({
         fallbackLanguage: configService.get('app.fallbackLanguage'),
-        loaderOptions: { path: path.join(__dirname, '/i18n/'), watch: true },
+        loaderOptions: { path: path.join(__dirname, '/../i18n/'), watch: true },
       }),
       resolvers: [
         {

@@ -24,6 +24,7 @@ export class Forgot extends EntityHelper {
   @Allow()
   @ManyToOne(() => User, {
     eager: true,
+    createForeignKeyConstraints: false
   })
   user: User;
 

@@ -30,22 +30,26 @@ export class Appartment extends EntityHelper {
   @ManyToOne((type) => Building, (buiding: Building) => buiding.appartments, {
     eager: true,
     cascade: true,
+    createForeignKeyConstraints: false
   })
   building?: Building | null;
 
   @ManyToOne((type) => Tenant, (tenant: Tenant) => tenant.appartments, {
     eager: true,
     cascade: true,
+    createForeignKeyConstraints: false
   })
   tenant?: Tenant | null;
 
   @ManyToOne(() => FileEntity, {
     eager: true,
+    createForeignKeyConstraints: false
   })
   photo?: FileEntity | null;
 
   @ManyToOne(() => StatusEntity, {
     eager: true,
+    createForeignKeyConstraints: false
   })
   status?: StatusEntity;
 

@@ -68,16 +68,19 @@ export class User extends EntityHelper {
 
   @ManyToOne(() => FileEntity, {
     eager: true,
+    createForeignKeyConstraints: false
   })
   photo?: FileEntity | null;
 
   @ManyToOne(() => RoleEntity, {
     eager: true,
+    createForeignKeyConstraints: false
   })
   role?: RoleEntity | null;
 
   @ManyToOne(() => StatusEntity, {
     eager: true,
+    createForeignKeyConstraints: false
   })
   status?: StatusEntity;
 
