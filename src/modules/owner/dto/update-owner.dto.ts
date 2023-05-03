@@ -11,7 +11,7 @@ import {
   MinLength,
   Validate,
 } from 'class-validator';
-import { StatusEntity } from '../../../statuses/entities/status.entity';
+import { StatusEntity } from '../../../status/entities/status.entity';
 import { IsNotExist } from '../../../utils/validators/is-not-exists.validator';
 import { FileEntity } from '../../../files/entities/file.entity';
 import { IsExist } from '../../../utils/validators/is-exists.validator';

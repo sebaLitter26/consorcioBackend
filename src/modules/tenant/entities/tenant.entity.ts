@@ -15,7 +15,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { RoleEntity } from '../../../roles/entities/role.entity';
-import { StatusEntity } from '../../../statuses/entities/status.entity';
+import { StatusEntity } from '../../../status/entities/status.entity';
 import { FileEntity } from '../../../files/entities/file.entity';
 import * as bcrypt from 'bcryptjs';
 import { EntityHelper } from 'src/utils/entity-helper';
@@ -24,10 +24,10 @@ import { EntityHelper } from 'src/utils/entity-helper';
 import { Appartment } from 'src/modules/appartment/entities/appartment.entity';
 import { User } from 'src/users/entities/user.entity';
 
-@Entity()
+@Entity({ name: 'tenant' })
 export class Tenant extends EntityHelper {
   @PrimaryGeneratedColumn()
-  id: number;
+  readonly id!: number;
 
   @OneToMany(
     (type) => Appartment,
@@ -38,20 +38,20 @@ export class Tenant extends EntityHelper {
   @OneToOne(() => User, {
     eager: true,
     cascade: true,
-    createForeignKeyConstraints: false
+    createForeignKeyConstraints: false,
   })
   @JoinColumn()
   user: User;
 
   @ManyToOne(() => FileEntity, {
     eager: true,
-    createForeignKeyConstraints: false
+    createForeignKeyConstraints: false,
   })
   photo?: FileEntity | null;
 
   @ManyToOne(() => StatusEntity, {
     eager: true,
-    createForeignKeyConstraints: false
+    createForeignKeyConstraints: false,
   })
   status?: StatusEntity;
 

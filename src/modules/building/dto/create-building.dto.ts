@@ -1,38 +1,52 @@
-import { Transform } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import {
+    IsArray,
   IsEmail,
   IsNotEmpty,
   IsOptional,
   MinLength,
   Validate,
+  isArray,
 } from 'class-validator';
-import { StatusEntity } from '../../../statuses/entities/status.entity';
+import { StatusEntity } from '../../../status/entities/status.entity';
 import { IsNotExist } from '../../../utils/validators/is-not-exists.validator';
 import { FileEntity } from '../../../files/entities/file.entity';
 import { IsExist } from '../../../utils/validators/is-exists.validator';
 
 export class CreateBuildingDto {
-  @ApiProperty({ example: 'Ayacucho 876, Haedo' })
-  @Transform(({ value }) => value?.toLowerCase().trim())
-  @IsNotEmpty()
-  @Validate(IsNotExist, ['Building'], {
-    message: 'addressAlreadyExists',
-  })
-  address: string | null;
 
-  @ApiProperty({ type: () => FileEntity })
-  @IsOptional()
-  @Validate(IsExist, ['FileEntity', 'id'], {
-    message: 'imageNotExists',
-  })
-  photo?: FileEntity | null;
+    @ApiProperty({ example: 'Ayacucho 876, Haedo' })
+    @Transform(({ value }) => value?.toLowerCase().trim())
+    @IsNotEmpty()
+    @Validate(IsNotExist, ['Building'], {
+        message: 'addressAlreadyExists',
+    })
+    address: string | null;
 
-  @ApiProperty({ type: StatusEntity })
-  @Validate(IsExist, ['Status', 'id'], {
-    message: 'statusNotExists',
-  })
-  status?: StatusEntity;
+    @IsArray()
+    @Type(()=> FileEntity)
+    @ApiProperty({ 
+        //type: () => FileEntity,
+        nullable: true,
+        isArray: true,
+        description: 'Images del edificio'
+    })
+    @IsOptional()
+    @Validate(IsExist, ['FileEntity', 'id'], {
+        message: 'imageNotExists',
+    })
+    photo?: FileEntity[] | null;
+
+    @ApiProperty({ 
+        type: () => StatusEntity,
+        nullable: true, 
+        description: 'Estado del edificio'
+    })
+    @Validate(IsExist, ['status', 'id'], {
+        message: 'statusNotExists',
+    })
+    status?: StatusEntity | null;
 }
 
 /* 

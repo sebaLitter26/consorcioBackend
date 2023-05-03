@@ -24,7 +24,6 @@ import { AuthResetPasswordDto } from './dto/auth-reset-password.dto';
 import { AuthUpdateDto } from './dto/auth-update.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthRegisterLoginDto } from './dto/auth-register-login.dto';
-import { LoggerService } from '../providers/logger/logger.service';
 
 @ApiTags('Auth')
 @Controller({
@@ -34,7 +33,6 @@ import { LoggerService } from '../providers/logger/logger.service';
 export class AuthController {
   constructor(
     public service: AuthService,
-    public logger: LoggerService, //@InjectRedis() private redis: Redis, //@Inject(PUB_SUB) private pubSub: PubSubModule
   ) {}
 
   @SerializeOptions({
@@ -66,7 +64,6 @@ export class AuthController {
   async confirmEmail(@Param('hash') hash) {
     //console.log(confirmEmailDto);
     //this.redis.publish('confirmEmailDto', JSON.stringify(confirmEmailDto));
-    //this.logger.log('confirmEmailDto ' ,hash);
 
     return await this.service.confirmEmail(hash);
   }

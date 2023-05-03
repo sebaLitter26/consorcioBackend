@@ -6,10 +6,10 @@ import { AuthEmailLoginDto } from './dto/auth-email-login.dto';
 import { AuthUpdateDto } from './dto/auth-update.dto';
 import { randomStringGenerator } from '@nestjs/common/utils/random-string-generator.util';
 import { RoleEnum } from 'src/roles/roles.enum';
-import { StatusEnum } from 'src/statuses/statuses.enum';
+import { StatusEnum } from 'src/status/status.enum';
 import * as crypto from 'crypto';
 import { plainToClass } from 'class-transformer';
-import { StatusEntity } from 'src/statuses/entities/status.entity';
+import { StatusEntity } from 'src/status/entities/status.entity';
 import { RoleEntity } from 'src/roles/entities/role.entity';
 import { AuthProvidersEnum } from './auth-providers.enum';
 import { SocialInterface } from 'src/social/interfaces/social.interface';
@@ -17,7 +17,6 @@ import { AuthRegisterLoginDto } from './dto/auth-register-login.dto';
 import { UsersService } from 'src/users/users.service';
 import { ForgotService } from 'src/forgot/forgot.service';
 import { MailService } from 'src/mail/mail.service';
-import { LoggerService } from 'src/providers/logger/logger.service';
 
 @Injectable()
 export class AuthService {
@@ -26,7 +25,6 @@ export class AuthService {
     private usersService: UsersService,
     private forgotService: ForgotService,
     private mailService: MailService,
-    public logger: LoggerService,
   ) {}
 
   async validateLogin(

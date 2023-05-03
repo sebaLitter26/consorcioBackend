@@ -15,7 +15,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       username: this.configService.get('database.username'),
       password: this.configService.get('database.password'),
       database: this.configService.get('database.name'),
-      synchronize: this.configService.get('database.synchronize'),   // cuando tenes una nueva columna en la entidad , la crea en la base. 
+      synchronize: this.configService.get('database.synchronize'), // cuando tenes una nueva columna en la entidad , la crea en la base.
       autoLoadEntities: true, //  sacar luego
       dropSchema: true,
       migrationsRun: true,

@@ -12,7 +12,7 @@ import {
   BeforeUpdate,
 } from 'typeorm';
 import { RoleEntity } from '../../roles/entities/role.entity';
-import { StatusEntity } from '../../statuses/entities/status.entity';
+import { StatusEntity } from '../../status/entities/status.entity';
 import { FileEntity } from '../../files/entities/file.entity';
 import * as bcrypt from 'bcryptjs';
 import { EntityHelper } from 'src/utils/entity-helper';
@@ -68,19 +68,19 @@ export class User extends EntityHelper {
 
   @ManyToOne(() => FileEntity, {
     eager: true,
-    createForeignKeyConstraints: false
+    createForeignKeyConstraints: false,
   })
   photo?: FileEntity | null;
 
   @ManyToOne(() => RoleEntity, {
     eager: true,
-    createForeignKeyConstraints: false
+    createForeignKeyConstraints: false,
   })
   role?: RoleEntity | null;
 
   @ManyToOne(() => StatusEntity, {
     eager: true,
-    createForeignKeyConstraints: false
+    createForeignKeyConstraints: false,
   })
   status?: StatusEntity;
 

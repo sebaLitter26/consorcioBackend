@@ -1,7 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { RoleEnum } from 'src/roles/roles.enum';
-import { StatusEnum } from 'src/statuses/statuses.enum';
 import { Building } from 'src/modules/building/entities/building.entity';
 import { Repository } from 'typeorm';
 
@@ -20,10 +18,10 @@ export class BuildingSeedService {
         this.repository.create({
           address: 'Ayacucho 876, Haedo',
           photo: null, //{"id": "cbcfa8b8-3a25-4adb-a9c6-e325f0d0f3ae"},
-          status: {
+          /* status: {
             id: StatusEnum.active,
             name: 'Active',
-          },
+          }, */
         }),
       );
     }

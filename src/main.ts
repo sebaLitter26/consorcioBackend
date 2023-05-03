@@ -29,7 +29,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe(validationOptions));
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
-  //app.useLogger(app.get(LoggerService));
+  app.useLogger(app.get(LoggerService));
   const options = new DocumentBuilder()
     .setTitle('API')
     .setDescription('API docs')

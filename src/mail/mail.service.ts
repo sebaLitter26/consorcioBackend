@@ -3,7 +3,6 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { I18n, I18nService } from 'nestjs-i18n';
 import { MailData } from './interfaces/mail-data.interface';
-import { LoggerService } from 'src/providers/logger/logger.service';
 
 @Injectable()
 export class MailService {
@@ -12,11 +11,9 @@ export class MailService {
     private readonly i18n: I18nService,
     private mailerService: MailerService,
     private configService: ConfigService,
-    public logger: LoggerService,
   ) {}
 
   async userSignUp(mailData: MailData<{ hash: string }>) {
-    //this.logger.log('confirmEmailDto ' ,mailData);
     await this.mailerService.sendMail({
       to: mailData.to,
       subject: await this.i18n.t('common.confirmEmail'),
